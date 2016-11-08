@@ -9,9 +9,12 @@ def caesar_cipher(string, cipher)
   s.each do |word|
     word.scan(/./) do |letter|
       while i < seed
-        if letter.ord == 90 || letter.ord == 122
-          letter = letter.ord.-(26-seed.to_i).chr
-          i += seed.to_i
+        if letter.ord == 90
+          letter = 65.chr
+          i += 1
+        elsif letter.ord == 122
+          letter = 97.chr
+          i += 1
         else
           letter = letter.next
           i += 1
@@ -27,8 +30,10 @@ end
 
 get '/' do
   text = params["text"]
-  number = params["number"]
-  message = caesar_cipher(text, number)
-  message ||= "You haven't scrambled any text yet!"
+  number = params["number"].to_i
+  message = "You haven't scrambled any text yet!"
+  if text != nil && number != nil
+    message = caesar_cipher(text, number)
+  end
   erb :index, :locals => {:message => message}
 end
