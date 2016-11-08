@@ -29,5 +29,6 @@ get '/' do
   text = params["text"]
   number = params["number"]
   message = caesar_cipher(text, number)
+  message ||= "You haven't scrambled any text yet!"
   erb :index, :locals => {:message => message}
 end
