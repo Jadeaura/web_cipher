@@ -26,5 +26,8 @@ def caesar_cipher(string, cipher)
 end
 
 get '/' do
-  caesar_cipher("The quick brown fox jumped over the lazy dog", 5)
+  text = params["text"]
+  number = params["number"]
+  message = caesar_cipher(text, number)
+  erb :index, :locals => {:message => message}
 end
